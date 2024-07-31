@@ -74,3 +74,9 @@ h1{
 .hide{
     display: none;
 }
+
+@media only screen and (min-width: 768px) {
+    .container {
+        height: 70vh;
+    }
+}
