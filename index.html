@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Tic Tac Toe</h1>
+                        <div class="scoreboard">
+                            <div class="score-card">
+                                <span class="label">Player X</span>
+                                <span id="score-x" class="value">0</span>
+                            </div>
+                            <div class="score-card">
+                                <span class="label">Draws</span>
+                                <span id="score-draw" class="value">0</span>
+                            </div>
+                            <div class="score-card">
+                                <span class="label">Player O</span>
+                                <span id="score-o" class="value">0</span>
+                            </div>
+                        </div>
+                        <div id="win-rate-display" class="win-rate">Win Rate: <span id="win-rate-val">0%</span></div>
+            
+                        <div class="mode-selector">
+                <button id="pvc-btn" class="mode-btn active">vs Computer</button>
+                <button id="pvp-btn" class="mode-btn">vs Player</button>
+            </div>
+
+            <div class="settings-group">
+                <span class="label">Color Theme</span>
+                <div class="theme-selector">
+                    <button class="theme-dot active" data-theme="cyber" style="background: linear-gradient(to bottom right, #00d2ff, #ffaf00)"></button>
+                    <button class="theme-dot" data-theme="forest" style="background: linear-gradient(to bottom right, #10b981, #a3e635)"></button>
+                    <button class="theme-dot" data-theme="royal" style="background: linear-gradient(to bottom right, #8b5cf6, #ec4899)"></button>
+                </div>
+            </div>
+
+            <div id="difficulty-settings" class="settings-group">
+                <span class="label">AI Difficulty</span>
+                <div class="difficulty-selector">
+                    <button class="diff-btn" data-diff="easy">Easy</button>
+                    <button class="diff-btn active" data-diff="medium">Med</button>
+                    <button class="diff-btn" data-diff="hard">Hard</button>
+                </div>
+            </div>
+
+            <div class="player-names settings-group">
+                <div class="name-input">
+                    <span class="dot x"></span>
+                    <input type="text" id="name-x" placeholder="Player X" maxlength="10">
+                </div>
+                <div class="name-input">
+                    <span class="dot o"></span>
+                    <input type="text" id="name-o" placeholder="Player O" maxlength="10">
+                </div>
+            </div>
+
+            <div class="extra-controls">
+                <button id="volume-btn" class="icon-btn">🔊</button>
+                <p id="turn-indicator">Player <span class="player-o">O</span>'s Turn</p>
+            </div>
+            
+            <div id="game-history" class="game-history">
+                <h3>Match History</h3>
+                <div id="history-list" class="history-list">
+                    <p class="empty-msg">No games played yet</p>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main">
+            <div class="container">
+                <div class="game" id="game-board">
+                    <div id="win-line" class="win-line"></div>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                    <button class="box"></button>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="reset-btn" class="btn">Reset Game</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Audio Effects -->
+    <audio id="sound-move" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+    <audio id="sound-win" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" preload="auto"></audio>
+    <audio id="sound-draw" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" preload="auto"></audio>
+
+    <!-- Win/Draw Modal Overlay -->
+    <div class="win-modal hide" id="win-modal">
+        <div class="modal-content">
+            <h2 class="msg">Winner</h2>
+            <button id="newgame-btn" class="btn primary-btn">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

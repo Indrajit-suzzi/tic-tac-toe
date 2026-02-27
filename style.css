@@ -1,0 +1,375 @@
+:root {
+    --bg-color: #0b0f1a;
+    --board-bg: #111827;
+    --box-bg: #1f2937;
+    --box-hover: #374151;
+    --text-color: #f3f4f6;
+    --player-x: #00d2ff;
+    --player-o: #ffaf00;
+    --player-x-glow: rgba(0, 210, 255, 0.4);
+    --player-o-glow: rgba(255, 175, 0, 0.4);
+    --primary-btn: #3b82f6;
+    --primary-btn-hover: #2563eb;
+    --winner-bg: #10b981;
+}
+
+[data-theme="forest"] {
+    --player-x: #10b981;
+    --player-o: #a3e635;
+    --player-x-glow: rgba(16, 185, 129, 0.4);
+    --player-o-glow: rgba(163, 230, 53, 0.4);
+    --primary-btn: #059669;
+}
+
+[data-theme="royal"] {
+    --player-x: #8b5cf6;
+    --player-o: #ec4899;
+    --player-x-glow: rgba(139, 92, 246, 0.4);
+    --player-o-glow: rgba(236, 72, 153, 0.4);
+    --primary-btn: #7c3aed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(-45deg, #0b0f1a, #1e293b, #0f172a, #111827);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--player-o), var(--player-x));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.scoreboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.score-card {
+    background: rgba(31, 41, 55, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.4rem;
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-card .label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.5;
+}
+
+.score-card .value {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.win-rate {
+    font-size: 0.7rem;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-top: -0.2rem;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 100%;
+}
+
+.settings-group .label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.5;
+    letter-spacing: 0.5px;
+}
+
+.mode-selector, .difficulty-selector {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.2rem;
+    border-radius: 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem;
+}
+
+.difficulty-selector {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.mode-btn, .diff-btn {
+    padding: 0.3rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.mode-btn.active, .diff-btn.active {
+    background: var(--box-bg);
+    opacity: 1;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+.theme-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.theme-dot.active { border-color: white; transform: scale(1.1); }
+
+.player-names {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.name-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.6rem;
+}
+
+.name-input input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: 100%;
+    outline: none;
+}
+
+.name-input .dot { width: 6px; height: 6px; border-radius: 50%; }
+.name-input .dot.x { background: var(--player-x); box-shadow: 0 0 5px var(--player-x); }
+.name-input .dot.o { background: var(--player-o); box-shadow: 0 0 5px var(--player-o); }
+
+.extra-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#turn-indicator {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: min(75vw, 320px);
+    padding: 8px;
+    background: var(--board-bg);
+    border-radius: 1.5rem;
+}
+
+.game {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+}
+
+.box {
+    background: var(--box-bg);
+    border-radius: 1rem;
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+    position: relative;
+    border: none;
+}
+
+.box:hover:not(:disabled) { background-color: var(--box-hover); transform: scale(1.02); }
+
+.box svg { width: 60%; height: 60%; stroke-width: 14; stroke-linecap: round; fill: none; }
+.box.x svg { stroke: var(--player-x); filter: drop-shadow(0 0 5px var(--player-x)); }
+.box.o svg { stroke: var(--player-o); filter: drop-shadow(0 0 5px var(--player-o)); }
+
+/* Glowing Neon Strike Line */
+.win-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+    height: 3px;
+    border-radius: 100px;
+    z-index: 100;
+    box-shadow: 
+        0 0 10px #fff,
+        0 0 20px var(--winner-bg),
+        0 0 40px var(--winner-bg);
+    transform-origin: left center;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s;
+}
+
+.win-line.active {
+    opacity: 1;
+}
+
+/* Enhanced Winner Box Polish */
+.box.winner {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid var(--winner-bg) !important;
+    color: #fff !important;
+    box-shadow: 
+        inset 0 0 20px var(--winner-bg),
+        0 0 30px var(--winner-bg);
+    animation: winnerPulse 1.5s infinite alternate ease-in-out !important;
+}
+
+@keyframes winnerPulse {
+    from { transform: scale(1); filter: brightness(1); opacity: 0.8; }
+    to { transform: scale(1.03); filter: brightness(1.3); opacity: 1; }
+}
+
+.controls { width: 100%; display: flex; justify-content: center; }
+.btn { padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; border-radius: 0.8rem; border: none; background: var(--box-bg); color: #fff; cursor: pointer; }
+.primary-btn { background: var(--primary-btn); }
+
+/* Modal */
+.win-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 2000; transition: opacity 0.4s; }
+.win-modal.hide { opacity: 0; pointer-events: none; }
+.modal-content { background: var(--board-bg); padding: 2rem; border-radius: 2rem; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1); }
+.msg { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+
+/* Desktop side-by-side */
+@media (min-width: 992px) {
+    .wrapper {
+        max-width: 950px;
+        flex-direction: row;
+        gap: 3rem;
+        padding: 2rem;
+        height: 90vh;
+        align-items: center;
+    }
+
+    header {
+        flex: 0.8;
+        text-align: left;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 1.5rem;
+        border-radius: 2rem;
+        gap: 0.8rem;
+        height: 100%;
+        justify-content: space-between;
+    }
+
+    h1 { font-size: 2.2rem; }
+    .scoreboard { grid-template-columns: 1fr; gap: 0.8rem; }
+    .score-card { flex-direction: row; justify-content: space-between; padding: 0.6rem 1.2rem; }
+    .score-card .label { font-size: 0.7rem; }
+    .score-card .value { font-size: 1.4rem; }
+    .win-rate { text-align: left; margin-left: 0.5rem; }
+    .mode-selector, .difficulty-selector { align-self: flex-start; width: 100%; }
+    .theme-selector { justify-content: flex-start; }
+    .extra-controls { justify-content: flex-start; }
+    .game-history { display: block; margin-top: 0.5rem; flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .history-list { flex: 1; overflow-y: auto; }
+
+    .main { flex: 1.2; height: 100%; }
+    .container { max-width: 420px; padding: 15px; }
+}
+
+@media (max-width: 991px) {
+    .game-history { display: none; }
+}
